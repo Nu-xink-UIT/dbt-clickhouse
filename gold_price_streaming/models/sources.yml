@@ -1,0 +1,10 @@
+version: 1
+sources:
+  - name: raw-data
+    database: raw
+    tables:
+      - name: sjc_raw
+      - name: goldprice_raw
+      - name: binance-raw
+      - name: vcb-raw
+      
