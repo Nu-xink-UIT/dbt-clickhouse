@@ -1,0 +1,57 @@
+version: 2
+
+models:
+    - name: stg_sjc
+      description: "Staging model for SJC gold prices with cleaned data types and Vietnamese timezone"
+
+      config:
+        constract:
+            enforce: true
+
+      columns:
+        - name: product_id
+          description: "Unique identifier for product casted from raw Id in SJC"
+          data_type: UInt32
+          tests:
+            - not_null
+        - name: product_name
+          description: "Name of the gold/jewelry type (e.g., SJC 1L, 2L)"
+          data_type: String
+
+        - name: branch_name
+          description: "Branch where the price was recorded"
+          data_type: String
+
+        - name: bid_price
+          description: "The price at which the store buys gold"
+          data_type: Float64
+
+        - name: ask_price
+          description: "The price at which the store sells gold"
+          data_type: Float64
+
+        - name: change_buy_abs
+          description: "Asolute change in buy price compared to previous update"
+          data_type: Float64
+
+        - name: change_sell_abs
+          description: "Asolute change in sell price compared to previous update"
+          data_type: Float64
+
+        - name: fetched_at
+          description: "Timestamp when the data was crawled (VN Time)"
+          data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+
+        - name: event_time_vn
+          description: "The official listing time parsed from raw source"
+          data_type: DateTime
+
+        - name: date_key
+          description:  "Date part of event_time_vn for partitioning/filtering"
+          data_type: Date
+
+        - name: processed_at
+          description: "Timestamp when dtb processed this record"
+          data_type: DateTime
+
+

@@ -1,10 +1,13 @@
 version: 1
 sources:
-  - name: raw-data
+  - name: raw_data
     database: raw
     tables:
       - name: sjc_raw
+        description: "Raw SJC table ingested from Kafka Connect"
       - name: goldprice_raw
+        description: Raw Goldprice table ingested from Kafka Connect"
       - name: binance-raw
+        desctiption: Raw Binance table ingested from Kafka Connect"
       - name: vcb-raw
-      
+        description: Raw VCB exchange rate table ingested from Kafka Connect"

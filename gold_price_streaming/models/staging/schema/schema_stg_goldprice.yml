@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: stg_goldprice
+    description: "Staging model for Goldprice gold prices with cleaned data types and separated product's attributes"
+
+    config:
+      constract:
+        enforce: true
+
+    columns:
+      - name: product_id
+        date_type: String
+        description: "Unique identifier for product from Goldprice"
+
+      - name: product_name
+        date_type: String
+        description: "Gold/Silver from Goldprice source"
+
+      - name: spot_price
+        date_type: Float64
+        description: "The current market price for immediate delivery of the asset (gold/silver)"
+
+      - name: reference_price
+        date_type: Float64
+        description: "The benchmark/ closing price used to calculate market fluctuations"
+
+      - name: change_sell_abs
+        date_type: Float64
+        description: "The absolute difference between the current selling price and the reference price"
+
+      - name: change_sell_pct
+        date_type: Float64
+        description: "The percentage change in the selling price relative to the reference price"
+
+      - name: fetched_at
+        date_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "Timestamp when data was crawled (in VN time)"
+
+      - name: event_time_vn
+        date_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "The official listing time parsed from raw Goldprice source (in VN time)"
+
+      # - name: event_time_ny
+      #   date_type: DateTime64(3, 'American/New_York')
+      #   description: "The official listing time parsed from raw Goldprice source (in New York time)"
+
+      - name: date_key
+        date_type: Date
+        description: "Date part of event_time_vn for partitioning/filtering"
+
+      - name: processed_at
+        date_type: DateTime
+        description: "Timestamp when dtb processed this record"
+
