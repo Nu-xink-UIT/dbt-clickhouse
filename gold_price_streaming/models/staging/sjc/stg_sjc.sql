@@ -1,7 +1,7 @@
 {{ config(
     materialized='materialized_view',
     engine='ReplacingMergeTree(fetched_at)',
-    order_by='(product_id, event_time_vn)',
+    order_by='(product_id, event_time)',
     settings={'allow_nullable_key': 1}
 )}}
 
@@ -19,9 +19,9 @@ renamed AS(
         CAST(BuyDifferValue AS Float64) AS change_buy_abs,
         CAST(SellDifferValue AS Float64) AS change_sell_abs,
         toDateTime64(fetched_at, 3, 'Asia/Ho_Chi_Minh') AS fetched_at,
-        parseDateTime(latestDate, '%H:%i %d/%m/%Y') AS event_time_vn,
-        toDate(event_time_vn) AS date_key,
-        now() AS processed_at
+        parseDateTime(latestDate, '%H:%i %d/%m/%Y') AS event_time,
+        toDate(event_time) AS date_key,
+        now64(3, 'Asia/Ho_Chi_Minh') AS processed_at
     FROM raw_sjc
 )
 

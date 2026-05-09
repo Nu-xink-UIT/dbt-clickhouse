@@ -42,12 +42,12 @@ models:
           description: "Timestamp when the data was crawled (VN Time)"
           data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
 
-        - name: event_time_vn
+        - name: event_time
           description: "The official listing time parsed from raw source"
           data_type: DateTime
 
         - name: date_key
-          description:  "Date part of event_time_vn for partitioning/filtering"
+          description:  "Date part of event_time for partitioning/filtering"
           data_type: Date
 
         - name: processed_at

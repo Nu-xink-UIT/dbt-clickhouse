@@ -11,7 +11,7 @@ WITH raw_goldprice AS(
 unfold AS(
     SELECT
         toDateTime64(fetched_at, 3, 'Asia/Ho_Chi_Minh') AS fetched_at,
-        toDateTime64(ts / 1000, 3, 'Asia/Ho_Chi_Minh') AS event_time_vn,
+        toDateTime64(ts / 1000, 3, 'Asia/Ho_Chi_Minh') AS event_time,
         -- parseDateTimeBestEffort(
         --              replaceRegexpOne(date, '(\d+)(st|nd|rd|th)|, | NY', '\\1'),
         --              'Asia/Ho_Chi_Minh') AS event_time_ny,
@@ -34,10 +34,10 @@ normalized AS(
         CAST(product_data.6 AS Float64) AS change_sell_pct,
         currency_code,
         fetched_at,
-        event_time_vn,
+        event_time,
         -- event_time_ny,
-        toDate(event_time_vn) AS date_key,
-        now() as processed_at
+        toDate(event_time) AS date_key,
+        now64(3, 'Asia/Ho_Chi_Minh') AS processed_at
     FROM unfold
 )
 
