@@ -1,0 +1,48 @@
+version: 2
+
+models:
+  - name: stg_vcb_exchange_rates
+    description: "Staging model for Vietcombank exchange rate data. Handles number string cleansing, data type casting, and time standardization."
+
+    config:
+      contract:
+        enforce: true
+
+    columns:
+      - name: currency_code
+        data_type: String
+        description: "3-character currency code (e.g., USD, EUR, JPY). Combined with event_time, it acts as the Primary Key."
+        tests:
+          - not_null
+
+      - name: currency_name
+        data_type: String
+        description: "Full name of the foreign currency."
+
+      - name: buy_rate
+        data_type: Float64
+        description: "Cash buying rate at the bank."
+
+      - name: transfer_rate
+        data_type: Float64
+        description: "Rate used for wire transfers or internal conversions."
+
+      - name: sell_rate
+        data_type: Float64
+        description: "Selling rate of the bank."
+
+      - name: event_time
+        data_type: DateTime('Asia/Ho_Chi_Minh')
+        description: "Time the exchange rate was recorded at the bank (in Asia/Ho_Chi_Minh timezone), parsed from the original US format."
+
+      - name: fetched_at
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "Timestamp when the system crawled the data (in Asia/Ho_Chi_Minh timezone)."
+
+      - name: date_key
+        data_type: Date
+        description: "Date the rate was recorded, used for partitioning or filtering data by day."
+
+      - name: processed_at
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "Timestamp when dbt processed and inserted this record."

@@ -1,0 +1,96 @@
+version: 2
+
+models:
+  - name: stg_binance
+    description: "Staging model for Binance 24hr ticker data. Fully supports OHLC for candle charts and adheres to the global pricing terminology."
+
+    config:
+      contract:
+        enforce: false
+
+    columns:
+      - name: origin
+        data_type: String
+        description: "Data source identifier ('Binance')."
+
+      - name: symbol
+        data_type: String
+        description: "Trading pair symbol (e.g., PAXGUSDT) mapped from (s)."
+        tests:
+          - not_null
+
+      - name: event_time
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "Time of the event mapped from (E). Serves as the primary timestamp to sync with other sources."
+
+      - name: open_price
+        data_type: Float64
+        description: "Open price of the 24-hour window mapped from (o)."
+
+      - name: high_price
+        data_type: Float64
+        description: "Highest price of the 24-hour window mapped from (h)."
+
+      - name: low_price
+        data_type: Float64
+        description: "Lowest price of the 24-hour window mapped from (l)."
+
+      - name: close_price
+        data_type: Float64
+        description: "Spot Price / Latest matching price mapped from (c). Used as the closing price for the timeframe."
+
+      - name: reference_price
+        data_type: Float64
+        description: "Previous closing/reference price mapped from (x)."
+
+      - name: bid_price
+        data_type: Float64
+        description: "Best bid price currently available mapped from (b)."
+
+      - name: ask_price
+        data_type: Float64
+        description: "Best ask price currently available mapped from (a)."
+
+      - name: price_change_abs
+        data_type: Float64
+        description: "Absolute price change over 24 hours mapped from (p)."
+
+      - name: price_change_pct
+        data_type: Float64
+        description: "Percentage price change over 24 hours mapped from (P)."
+
+      - name: vw_avg_price
+        data_type: Float64
+        description: "Volume-weighted average price mapped from (w)."
+
+      - name: volume_base
+        data_type: Float64
+        description: "24h trading volume in base asset (e.g., PAXG) mapped from (v)."
+
+      - name: volume_quote
+        data_type: Float64
+        description: "24h trading volume in quote asset (e.g., USDT) mapped from (q)."
+
+      - name: trades_count
+        data_type: UInt32
+        description: "Total number of trades mapped from (n)."
+
+      - name: window_start_time
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "Start time of the 24h rolling window mapped from (O)."
+
+      - name: window_end_time
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "End time of the 24h rolling window mapped from (C)."
+
+      - name: fetched_at
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        description: "System ingestion time used to calculate latency."
+
+      - name: date_key
+        data_type: Date
+        description: "Date partition key extracted from event_time."
+
+      - name: processed_at
+        data_type: DateTime('Asia/Ho_Chi_Minh')
+        description: "Timestamp when dbt processed this row."

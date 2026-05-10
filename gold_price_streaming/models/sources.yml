@@ -7,7 +7,7 @@ sources:
         description: "Raw SJC table ingested from Kafka Connect"
       - name: goldprice_raw
         description: Raw Goldprice table ingested from Kafka Connect"
-      - name: binance-raw
-        desctiption: Raw Binance table ingested from Kafka Connect"
-      - name: vcb-raw
+      - name: binance_raw
+        description: Raw Binance table ingested from Kafka Connect"
+      - name: vcb_raw
         description: Raw VCB exchange rate table ingested from Kafka Connect"
