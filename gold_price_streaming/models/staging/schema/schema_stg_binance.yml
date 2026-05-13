@@ -6,7 +6,7 @@ models:
 
     config:
       contract:
-        enforce: false
+        enforce: true
 
     columns:
       - name: origin
