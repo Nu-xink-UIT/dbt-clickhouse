@@ -20,7 +20,7 @@ WITH raw_data AS (
 
         spot_price_vnd_luong AS global_price_vnd,
 
-        dictGet('silver.dict_sjc', 'ask_price', tuple(toUInt64(1))) AS local_price_vnd
+        dictGet('silver.dict_sjc', 'ask_price', toUInt64(1)) AS local_price_vnd
     FROM {{ source('silver', 'silver_gold_exchange') }}
 )
 
