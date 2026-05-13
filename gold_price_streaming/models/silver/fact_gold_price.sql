@@ -10,9 +10,9 @@ WITH raw_data AS (
         toDate(gold_prices_time) AS date_key,
         gold_prices_time AS event_time,
 
-        dictGet('silver.dict_dim_product', 'product_id', ('Gold', 'New York')) AS global_product_id,
+        dictGet('silver.dict_dim_product', 'product_id', tuple('Gold', 'New York')) AS global_product_id,
 
-        dictGet('silver.dict_dim_product', 'product_id', ('Vàng SJC 1L, 10L, 1KG', 'Hồ Chí Minh')) AS local_product_id,
+        dictGet('silver.dict_dim_product', 'product_id', tuple('Vàng SJC 1L, 10L, 1KG', 'Hồ Chí Minh')) AS local_product_id,
 
         dictGet('silver.dict_dim_currency', 'currency_id', tuple(currency_code)) AS currency_id,
 
@@ -20,7 +20,7 @@ WITH raw_data AS (
 
         spot_price_vnd_luong AS global_price_vnd,
 
-        dictGet('silver.dict_sjc', 'ask_price', toUInt64(1)) AS local_price_vnd
+        dictGet('silver.dict_sjc', 'ask_price', tuple(toUInt64(1))) AS local_price_vnd
     FROM {{ source('silver', 'silver_gold_exchange') }}
 )
 
