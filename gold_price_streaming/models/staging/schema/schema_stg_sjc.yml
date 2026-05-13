@@ -44,7 +44,7 @@ models:
 
         - name: event_time
           description: "The official listing time parsed from raw source"
-          data_type: DateTime
+          data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
 
         - name: date_key
           description:  "Date part of event_time for partitioning/filtering"

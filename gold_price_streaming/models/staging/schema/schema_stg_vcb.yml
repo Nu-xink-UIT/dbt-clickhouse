@@ -32,7 +32,8 @@ models:
         description: "Selling rate of the bank."
 
       - name: event_time
-        data_type: DateTime('Asia/Ho_Chi_Minh')
+        # data_type: DateTime('Asia/Ho_Chi_Minh')
+        data_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
         description: "Time the exchange rate was recorded at the bank (in Asia/Ho_Chi_Minh timezone), parsed from the original US format."
 
       - name: fetched_at

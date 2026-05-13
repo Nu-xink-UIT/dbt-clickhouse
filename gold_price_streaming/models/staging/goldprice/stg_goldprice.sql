@@ -12,6 +12,8 @@ unfold AS(
     SELECT
         toDateTime64(fetched_at, 3, 'Asia/Ho_Chi_Minh') AS fetched_at,
         toDateTime64(ts / 1000, 3, 'Asia/Ho_Chi_Minh') AS event_time,
+        -- toDateTime(ts / 1000, 'Asia/Ho_Chi_Minh') AS event_time,
+
         -- parseDateTimeBestEffort(
         --              replaceRegexpOne(date, '(\d+)(st|nd|rd|th)|, | NY', '\\1'),
         --              'Asia/Ho_Chi_Minh') AS event_time_ny,
@@ -42,3 +44,29 @@ normalized AS(
 )
 
 SELECT * FROM normalized
+
+
+
+
+
+{% macro create_vcb_dict() %}
+
+    {% set sql %}
+        CREATE DICTIONARY IF NOT EXISTS {{ target.schema }}.dict_vcb_rates (
+            currency_code String,
+            reference_price Float64,
+            event_time DateTime64(3, 'Asia/Ho_Chi_Minh')
+        )
+        PRIMARY KEY currency_code
+        SOURCE(CLICKHOUSE(
+            TABLE 'stg_vcb'  -- Bảng nguồn tỷ giá của bạn
+            DB '{{ target.schema }}'
+        ))
+        LIFETIME(MIN 3600 MAX 10800)
+        LAYOUT(HASHED())
+    {% endset %}
+
+    {% do run_query(sql) %}
+    {{ log("Dictionary dict_vcb_rates created/verified", info=True) }}
+
+{% endmacro %}

@@ -19,7 +19,7 @@ renamed AS(
         CAST(BuyDifferValue AS Float64) AS change_buy_abs,
         CAST(SellDifferValue AS Float64) AS change_sell_abs,
         toDateTime64(fetched_at, 3, 'Asia/Ho_Chi_Minh') AS fetched_at,
-        parseDateTime(latestDate, '%H:%i %d/%m/%Y') AS event_time,
+        toDateTime64(parseDateTime(latestDate, '%H:%i %d/%m/%Y'), 3) AS event_time, -- is HCM already - not need to +7 anymore --> take not of original data
         toDate(event_time) AS date_key,
         now64(3, 'Asia/Ho_Chi_Minh') AS processed_at
     FROM raw_sjc

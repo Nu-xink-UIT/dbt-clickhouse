@@ -39,6 +39,7 @@ models:
 
       - name: event_time
         date_type: DateTime64(3, 'Asia/Ho_Chi_Minh')
+        # date_type: DateTime('Asia/Ho_Chi_Minh')
         description: "The official listing time parsed from raw Goldprice source (in VN time)"
 
       # - name: event_time_ny
