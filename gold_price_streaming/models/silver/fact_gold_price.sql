@@ -14,7 +14,7 @@ WITH raw_data AS (
 
         dictGet('silver.dict_dim_product', 'product_id', ('Vàng SJC 1L, 10L, 1KG', 'Hồ Chí Minh')) AS local_product_id,
 
-        dictGet('silver.dict_dim_currency', 'currency_id', currency_code) AS currency_id,
+        dictGet('silver.dict_dim_currency', 'currency_id', tuple(currency_code)) AS currency_id,
 
         price_foreign_oz AS global_price,
 
