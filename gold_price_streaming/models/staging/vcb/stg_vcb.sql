@@ -17,9 +17,10 @@ cleaned AS (
         toFloat64OrNull(replaceAll(Buy, ',', '')) AS bid_price,
         toFloat64OrNull(replaceAll(Transfer, ',', '')) AS reference_price,
         toFloat64OrNull(replaceAll(Sell, ',', '')) AS ask_price,
-
-        --parseDateTimeBestEffort(DateTime, 'Asia/Ho_Chi_Minh') AS event_time,
-        parseDateTime(DateTime, '%d/%m/%Y %H:%i:%s', 'Asia/Ho_Chi_Minh') AS event_time,
+        ifNull(
+            parseDateTimeOrNull(DateTime, '%d/%m/%Y %H:%i:%s', 'Asia/Ho_Chi_Minh'),
+            now('Asia/Ho_Chi_Minh')
+        ) AS event_time,
         parseDateTime64BestEffort(fetched_at, 3, 'Asia/Ho_Chi_Minh') AS fetched_at,
 
         toDate(parseDateTimeBestEffort(DateTime, 'Asia/Ho_Chi_Minh')) AS date_key,
