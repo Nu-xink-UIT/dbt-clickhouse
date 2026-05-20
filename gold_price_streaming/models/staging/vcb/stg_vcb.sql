@@ -23,7 +23,7 @@ cleaned AS (
         ) AS event_time,
         parseDateTime64BestEffort(fetched_at, 3, 'Asia/Ho_Chi_Minh') AS fetched_at,
 
-        toDate(parseDateTimeBestEffort(DateTime, 'Asia/Ho_Chi_Minh')) AS date_key,
+        toDate(event_time) AS date_key,
         now64(3, 'Asia/Ho_Chi_Minh') AS processed_at
     FROM raw_vcb
 )
