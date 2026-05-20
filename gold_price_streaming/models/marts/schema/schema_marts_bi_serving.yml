@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: obt_gold_market_trend
+    description: "One Big Table (OBT) phẳng hóa toàn bộ Dimension và Fact của thị trường Vàng. Tối ưu hóa cho người dùng kéo thả trên Power BI."
+    columns:
+      - name: event_time
+        description: "Thời gian cập nhật giá"
+      - name: global_product_name
+        description: "Tên sản phẩm vàng thế giới (được map từ Dictionary)"
+        tests:
+          - not_null # Đảm bảo Dictionary luôn map thành công, không bị lọt ID rác
+      - name: local_provider
+        description: "Nhà cung cấp trong nước (VD: SJC)"
+      - name: spread_vnd
+        description: "Chênh lệch giá"
+
+  - name: obt_binance_daily_ohlc
+    description: "One Big Table (OBT) thống kê hiệu suất nến ngày (1D) của Crypto. Cung cấp sẵn các chỉ số phái sinh cho BI."
+    columns:
+      - name: date_key
+        description: "Ngày giao dịch"
+        tests:
+          - not_null
+      - name: product_name
+        description: "Tên đồng Coin/Token (Map từ Dictionary)"
+        tests:
+          - not_null
+      - name: daily_price_change_percent
+        description: "Phần trăm biến động giá trong 24h (từ lúc Open đến Close)"
+      - name: daily_trend_status
+        description: "Trạng thái nến (Bullish - Tăng trưởng, Bearish - Suy giảm)"

@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: mart_gold_trend
+    description: "View cung cấp dữ liệu Time-series cho 2 đường giá Vàng (Thế giới & SJC) và độ chênh lệch Spread. Phục vụ cho Grafana Line Chart."
+    columns:
+      - name: event_time
+        description: "Thời gian thực tế phát sinh giao dịch/cập nhật giá"
+        tests:
+          - not_null
+      - name: global_price_vnd
+        description: "Giá vàng thế giới quy đổi ra VNĐ/Lượng"
+      - name: local_price_vnd
+        description: "Giá vàng SJC trong nước (VNĐ/Lượng)"
+      - name: spread_vnd
+        description: "Mức chênh lệch tuyệt đối (Local - Global)"
+      - name: spread_percent
+        description: "Phần trăm chênh lệch (%)"

@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: mart_binance_ohlc
+    description: "Bảng Core (Materialized View) lưu trữ trạng thái nến OHLC 1 phút cho Crypto từ nguồn Binance."
+    columns:
+      - name: symbol
+        description: "Mã cặp tiền/token giao dịch từ Binance (VD: BTCUSDT)"
+        tests:
+          - not_null
+      - name: event_time_bucket_1m
+        description: "Khung thời gian đã được làm tròn về đầu phút"
+        tests:
+          - not_null
+
+  - name: view_binance_ohlc_1m
+    description: "View đọc dữ liệu nến khung 1 phút (1M) dùng hàm Merge để giải nén State."
+    columns:
+      - name: symbol
+        description: "Mã cặp tiền/token giao dịch"
+      - name: event_time_bucket
+        description: "Mốc thời gian đầu phút (theo timezone)"
+      - name: open_price
+        description: "Giá mở cửa trong phút"
+      - name: close_price
+        description: "Giá đóng cửa trong phút"
+
+  - name: view_binance_ohlc_15m
+    description: "View đọc dữ liệu nến khung 15 phút (15M) dùng hàm Merge để giải nén State."
+    columns:
+      - name: symbol
+        description: "Mã cặp tiền/token giao dịch"
+      - name: event_time_bucket
+        description: "Mốc thời gian đầu 15 phút (theo timezone)"
+      - name: open_price
+        description: "Giá mở cửa trong 15 phút"
+      - name: close_price
+        description: "Giá đóng cửa trong 15 phút"
+
+  - name: view_binance_ohlc_1h
+    description: "View đọc dữ liệu nến khung 1 Giờ (1H) dùng hàm Merge để giải nén State."
+    columns:
+      - name: symbol
+        description: "Mã cặp tiền/token giao dịch"
+      - name: event_time_bucket
+        description: "Mốc thời gian đầu giờ (theo timezone)"
+      - name: open_price
+        description: "Giá mở cửa trong giờ"
+      - name: close_price
+        description: "Giá đóng cửa trong giờ"
+
+  - name: view_binance_ohlc_1d
+    description: "View đọc dữ liệu nến khung 1 Ngày (1D) dùng hàm Merge để giải nén State."
+    columns:
+      - name: symbol
+        description: "Mã cặp tiền/token giao dịch"
+      - name: event_time_bucket
+        description: "Mốc thời gian đầu ngày (theo timezone)"
+      - name: open_price
+        description: "Giá mở cửa trong ngày"
+      - name: close_price
+        description: "Giá đóng cửa trong ngày"
+
