@@ -7,7 +7,7 @@
 
 SELECT
     toStartOfMinute(event_time) AS event_time_bucket_1m,
-    symbol, -- Đổi từ product_id thành symbol để khớp với stg_binance
+    symbol, 
 
     -- Dùng close_price (giá hiện tại của tick stream) để tính toán State
     argMinState(close_price, event_time) AS open_price_state,
