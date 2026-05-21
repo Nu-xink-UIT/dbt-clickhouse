@@ -2,7 +2,6 @@
     materialized='materialized_view',
     engine='ReplacingMergeTree(fetched_at)',
     order_by='(product_id, currency_code, event_time)',
-    is_populate=true,
     settings={'allow_nullable_key': 1}
 ) }}
 
