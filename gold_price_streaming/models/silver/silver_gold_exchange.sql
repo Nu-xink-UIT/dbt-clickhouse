@@ -17,6 +17,7 @@ SELECT
     date_key,
     now64(3, 'Asia/Ho_Chi_Minh') as processed_at
 FROM {{ source('staging', 'stg_goldprice')}}
+WHERE product_id = 'XAU' AND currency_code = 'USD'
 
 
 -- WITH gold_prices AS(
