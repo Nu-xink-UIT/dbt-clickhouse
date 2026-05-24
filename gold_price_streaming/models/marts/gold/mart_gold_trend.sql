@@ -12,4 +12,4 @@ SELECT
     spread_amount AS spread_vnd,
     spread_percent
 
-FROM {{ ref('silver', 'fact_gold_price') }}
+FROM {{ ref('fact_gold_price') }}

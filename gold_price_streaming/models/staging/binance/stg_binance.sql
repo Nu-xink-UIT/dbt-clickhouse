@@ -6,7 +6,26 @@
 ) }}
 
 WITH raw_binance AS (
-    SELECT * FROM {{ source('raw_data', 'binance_raw') }}
+    SELECT
+        s,
+        E,
+        o,
+        h,
+        l,
+        c,
+        x,
+        b,
+        a,
+        p,
+        P,
+        w,
+        v,
+        q,
+        n,
+        O,
+        C,
+        fetched_at
+    FROM {{ source('raw_data', 'binance_raw') }}
 ),
 
 cleaned AS (

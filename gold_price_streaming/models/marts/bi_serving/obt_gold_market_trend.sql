@@ -3,7 +3,16 @@
 ) }}
 
 WITH gold_marts_base AS (
-    SELECT * FROM {{ ref('mart_gold_trend') }}
+    SELECT
+        event_time,
+        date_key,
+        global_product_id,
+        local_product_id,
+        global_price_vnd,
+        local_price_vnd,
+        spread_vnd,
+        spread_percent
+    FROM {{ ref('mart_gold_trend') }}
 ),
 
 product_dim AS (
@@ -11,7 +20,7 @@ product_dim AS (
         CAST(product_id AS String) AS product_id,
         product_name,
         branch
-    FROM silver.dim_product
+    FROM {{ ref('dim_product') }}
 )
 
 SELECT

@@ -2,6 +2,7 @@ version: 2
 
 models:
   - name: dim_date
-  
+  - name: dim_sjc
+  - name: dim_vcb_rates
   - name: dim_currency
   - name: dim_product

@@ -6,7 +6,17 @@
 )}}
 
 WITH raw_sjc AS(
-    SELECT * FROM {{ source('raw_data', 'sjc_raw') }}
+    SELECT
+        Id,
+        TypeName,
+        BranchName,
+        BuyValue,
+        SellValue,
+        BuyDifferValue,
+        SellDifferValue,
+        latestDate,
+        fetched_at
+    FROM {{ source('raw_data', 'sjc_raw') }}
 ),
 
 renamed AS(

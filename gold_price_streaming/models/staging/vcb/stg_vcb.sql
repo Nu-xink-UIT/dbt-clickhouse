@@ -6,7 +6,15 @@
 ) }}
 
 WITH raw_vcb AS (
-    SELECT * FROM {{ source('raw_data', 'vcb_raw') }}
+    SELECT
+        CurrencyCode,
+        CurrencyName,
+        Buy,
+        Sell,
+        Transfer,
+        DateTime,
+        fetched_at
+    FROM {{ source('raw_data', 'vcb_raw') }}
 ),
 
 cleaned AS (

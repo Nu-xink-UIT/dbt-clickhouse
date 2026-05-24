@@ -16,3 +16,10 @@ logs/
 
 profiles.yml
 .env
+
+gold_price_streaming/.DS_Store
+gold_price_streaming/.DS_Store?
+gold_price_streaming/._*
+gold_price_streaming/.Spotlight-V100
+gold_price_streaming/.Trashes
+gold_price_streaming/.env
