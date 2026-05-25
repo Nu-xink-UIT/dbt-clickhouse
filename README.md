@@ -29,7 +29,8 @@ Adhering strictly to the **Medallion Architecture** (Bronze - Silver - Gold), th
 | **4. BI Serving** | `marts` | Flattened One Big Tables (OBTs) optimized for drag-and-drop BI dashboards (`obt_gold_market_trend`, `obt_binance_daily_ohlc`). |
 
 ## 📊 Data Lineage DAG
-![dbt DAG]<img width="2908" height="1272" alt="dbt-dag-2" src="https://github.com/user-attachments/assets/88a237a5-2ef4-4b2b-beb9-1f86a622bf26" />
+<img width="2908" height="1272" alt="dbt-dag-3" src="https://github.com/user-attachments/assets/9cefaadb-21a6-4adf-830e-45ba80e35ff7" />
+
 
 
 ## 💻 Getting Started
