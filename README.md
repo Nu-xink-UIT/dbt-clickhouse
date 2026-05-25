@@ -25,12 +25,12 @@ Adhering strictly to the **Medallion Architecture** (Bronze - Silver - Gold), th
 | **0. Raw (Bronze)** | `raw` | Raw payloads (JSON/Kafka) ingested directly into ClickHouse via Distributed Tables (`binance_raw`, `sjc_raw`, `goldprice_raw`). |
 | **1. Staging** | `staging` | Light transformations, data type casting, and column name standardization. |
 | **2. Silver** | `silver` | Conformed dimensions (`dim_product`, `dim_currency`) and cleansed fact tables (e.g., `silver_gold_exchange` integrating USD to VND conversions). |
-| **3. Marts (Gold)** | `marts` | Complex business logic and state aggregations handled via Materialized Views (`mart_binance_ohlc`). |
+| **3. Marts (Gold and Crypto)** | `marts` | Complex business logic and state aggregations handled via Materialized Views (`mart_binance_ohlc`). |
 | **4. BI Serving** | `marts` | Flattened One Big Tables (OBTs) optimized for drag-and-drop BI dashboards (`obt_gold_market_trend`, `obt_binance_daily_ohlc`). |
 
 ## 📊 Data Lineage DAG
-*(You can replace this placeholder with a screenshot of your actual dbt Docs Lineage Graph)*
-![dbt DAG](<img width="2908" height="1272" alt="dbt-dag-2" src="https://github.com/user-attachments/assets/886cb0e2-4ee7-4aa1-899a-ef4f2b4ac380" />)
+![dbt DAG]<img width="2908" height="1272" alt="dbt-dag-2" src="https://github.com/user-attachments/assets/88a237a5-2ef4-4b2b-beb9-1f86a622bf26" />
+
 
 ## 💻 Getting Started
 
