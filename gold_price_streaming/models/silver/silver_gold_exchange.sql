@@ -46,6 +46,5 @@ SELECT
     now64(3, 'Asia/Ho_Chi_Minh') as processed_at
 
 FROM gold_prices AS g
-ASOF LEFT JOIN filtered_vcb_rates AS v
+LEFT JOIN filtered_vcb_rates AS v
   ON g.currency_code = v.currency_code
-AND g.event_time <= v.max_event_time
