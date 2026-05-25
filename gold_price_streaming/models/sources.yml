@@ -11,20 +11,3 @@ sources:
         description: Raw Binance table ingested from Kafka Connect"
       - name: vcb_raw
         description: Raw VCB exchange rate table ingested from Kafka Connect"
-  - name: staging
-    database: staging_dev
-    tables:
-      - name: stg_goldprice
-      - name: stg_vcb
-      - name: stg_binance
-      - name: stg_sjc
-
-  - name: silver
-    database: silver
-    tables:
-      - name: silver_gold_exchange
-      - name: dim_date
-      - name: dim_currency
-      - name: dim_product
-      - name: dict_dim_product
-      - name: dict_dim_currency
