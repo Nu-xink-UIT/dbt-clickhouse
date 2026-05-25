@@ -19,3 +19,7 @@ SELECT
     if(f.close_price > f.open_price, 'Bullish', 'Bearish') AS daily_trend_status
 
 FROM {{ ref('view_binance_ohlc_1d') }} f
+
+{% if is_incremental() %}
+  WHERE f.event_time_bucket >= (SELECT max(date_key) FROM {{ this }})
+{% endif %}
