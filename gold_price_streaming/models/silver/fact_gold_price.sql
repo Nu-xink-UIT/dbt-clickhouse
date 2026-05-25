@@ -6,30 +6,41 @@
 
 WITH raw_stream AS (
     SELECT
-        toDate(gold_prices_time) AS date_key,
-        gold_prices_time AS event_time,
+        toDate(g.gold_prices_time) AS date_key,
+        g.gold_prices_time AS event_time,
 
-        dictGet('silver.dict_dim_product', 'product_id', tuple('Gold', 'New York')) AS global_product_id,
-        dictGet('silver.dict_dim_product', 'product_id', tuple('Vàng SJC 1L, 10L, 1KG', 'Hồ Chí Minh')) AS local_product_id,
-        dictGet('silver.dict_dim_currency', 'currency_id', tuple(currency_code)) AS currency_id,
+        24 AS global_product_id,
+        5 AS local_product_id,
 
-        price_foreign_oz AS global_price,
-        spot_price_vnd_luong AS global_price_vnd,
+        c.currency_id AS currency_id,
 
-        dictGetOrDefault('silver.dict_sjc', 'ask_price', toUInt64(1), 0.0) AS local_price_vnd
-    FROM {{ ref('silver_gold_exchange') }}
+        g.price_foreign_oz AS global_price,
+        g.spot_price_vnd_luong AS global_price_vnd
+    FROM {{ ref('silver_gold_exchange') }} AS g
+    LEFT JOIN {{ ref('dim_currency') }} AS c
+      ON g.currency_code = c.currency_code
+    WHERE g.currency_code != 'VND' 
+),
+
+local_sjc_price AS (
+    SELECT ask_price
+    FROM {{ ref('dim_sjc') }}
+    LIMIT 1
 )
 
 SELECT
-    date_key,
-    event_time,
-    global_product_id,
-    local_product_id,
-    currency_id,
-    global_price,
-    global_price_vnd,
-    local_price_vnd,
-    (local_price_vnd - global_price_vnd) AS spread_amount,
-    if(global_price_vnd > 0, ((local_price_vnd - global_price_vnd) / global_price_vnd) * 100, 0) AS spread_percent,
+    s.date_key,
+    s.event_time,
+    s.global_product_id,
+    s.local_product_id,
+    s.currency_id,
+    s.global_price,
+    s.global_price_vnd,
+
+    coalesce((SELECT ask_price FROM local_sjc_price), 0.0) AS local_price_vnd,
+
+    if(s.global_price_vnd > 0, local_price_vnd - s.global_price_vnd, NULL) AS spread_amount,
+    if(s.global_price_vnd > 0, ((local_price_vnd - s.global_price_vnd) / s.global_price_vnd) * 100, 0) AS spread_percent,
+
     now64(3, 'Asia/Ho_Chi_Minh') AS processed_at
-FROM raw_stream
+FROM raw_stream AS s
