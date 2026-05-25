@@ -15,7 +15,8 @@ Adhering strictly to the **Medallion Architecture** (Bronze - Silver - Gold), th
 * **Real-time OHLC Aggregation:** Utilizes ClickHouse's `AggregatingMergeTree` and Materialized Views to unwrap state variables (`argMinState`, `maxState`, etc.) and compute continuous OHLC candlesticks (1m, 15m, 1h, 1d) at the exact moment of ingestion.
 * **Time-Series "ASOF" Joins:** Implements highly optimized logic to map real-time Vietcombank (VCB) foreign exchange rates against global gold prices, ensuring accurate calculation of market spreads and premiums.
 * **Incremental Loading Architecture:** Maximizes query performance and minimizes compute overhead for One Big Tables (OBTs) by combining dbt Incremental Models with ClickHouse's `ReplacingMergeTree` engine for automatic data deduplication.
-* **Rigorous Data Quality & Testing:** * Integrated dbt Generic Tests (`unique`, `not_null`, `accepted_values`) to enforce data integrity.
+* **Rigorous Data Quality & Testing:**
+  * Integrated dbt Generic Tests (`unique`, `not_null`, `accepted_values`) to enforce data integrity.
   * Developed Custom Singular Tests to intercept anomalies before serving (e.g., `assert_positive_spot_price_vnd` to block negative converted gold prices).
 
 ## 📂 Medallion Data Architecture
