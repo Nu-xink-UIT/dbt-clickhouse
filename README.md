@@ -43,16 +43,16 @@ source .venv/bin/activate
 pip install dbt-clickhouse
 ```
 
-** 2. ClickHouse Configuration:
+**2. ClickHouse Configuration:**
 Configure your ~/.dbt/profiles.yml file to securely connect to your ClickHouse server/cluster.
 
-**3. Build the Pipeline:
+**3. Build the Pipeline:**
 Load environment variables and execute the full pipeline.
 ```bash
 export $(grep -v '^#' .env | xargs) && dbt build
 ```
 
-**4. Generate & Serve Documentation:
+**4. Generate & Serve Documentation:**
 Launch the interactive Data Lineage and documentation portal:
 
 ```Bash
